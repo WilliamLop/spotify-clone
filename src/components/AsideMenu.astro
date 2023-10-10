@@ -1,0 +1,62 @@
+---
+import LibraryIcon from "../icons/Library.astro";
+import HomeIcon from "../icons/Home.astro";
+import SearchIcon from "../icons/Search.astro";
+import SideMenu from "./SideMenu.astro";
+import MasIcon from "../icons/Mas.astro";
+import ArrowIcon from "../icons/Arrow.astro";
+import IconsLinks from "../components/IconsLinks.astro";
+import SideMenuCard from "../components/SideMenuCard.astro";
+
+import { playlists } from "../lib/data";
+---
+
+
+<nav class="flex flex-col flex-1 gap-2 h-full">
+    <div class="bg-dark rounded-lg p-2">
+        <ul class="">
+            <SideMenu href="/">
+                <HomeIcon />
+                Inicio
+            </SideMenu>
+            <SideMenu href="/">
+                <SearchIcon />
+                Buscar
+            </SideMenu>
+        </ul>
+    </div>
+    <div class="bg-dark rounded-lg p-2 flex-1">
+        <ul> 
+            <div class="flex justify-between items-center">
+                <div class="">
+                    <SideMenu href="/">
+                        <LibraryIcon />
+                        Tu biblioteca
+                    </SideMenu>
+                </div>
+                <div class="">
+                    <ul class="flex gap-2 pr-2">
+                        <IconsLinks href="/">
+                            <MasIcon />
+                        </IconsLinks>
+                        <IconsLinks href="/">
+                            <ArrowIcon />
+                        </IconsLinks>
+                    </ul>
+                </div>
+            </div>
+            <div class="grid gap-2 pl-2 mt-2">
+                {
+                    playlists.map((playlist => <SideMenuCard playlist = {playlist} />))
+                }
+            </div>
+        </ul>
+    </div>
+</nav>
+
+
+<style>
+    .bg-dark{
+        background: #121212;
+    }
+</style>

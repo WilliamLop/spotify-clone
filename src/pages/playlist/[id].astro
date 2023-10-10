@@ -1,0 +1,62 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+import  PlayListItemCard from "../../components/PlayListItemCard.astro";
+
+import { allPlaylists, songs } from '../../lib/data';
+
+const {id} = Astro.params
+
+const playlist = allPlaylists.find(playlist =>  playlist.id === id)
+const playListSongs = songs.filter(song => song.albumId === playlist?.albumId);
+
+
+---
+
+<Layout title="Spotify clone">
+	<div id="playlist-container"
+		class="relative transition-all bg-green-500/60 flex-col h-full flex overflow-x-hidden"
+        transition:name=`playlist ${id} box`
+        >
+
+        <header class="flex items-end gap-8 px-6 mt-14">
+            <picture class="aspect-square h-auto flex-none w-44 shadow-lg">
+                <img src={playlist?.cover}
+                alt={`Cover of ${playlist?.title}`} 
+                class="object-cover w-full h-full"
+                transition:name=`playlist ${playlist?.id} image`>
+            </picture>
+
+            <div class="grid gap-6">
+                <div>
+                    <h2 class="bg-zinc-900/70 text-white w-20 text-sm rounded-full py-[.2rem] text-center shadow-md">Playlist</h2>
+                    <h1 class="font-bold block text-5xl text-white mt-2">
+                        {playlist?.title}
+                    </h1>
+                    <span transition:name=`playlist ${playlist?.id} title`></span>
+                </div>
+
+                <div class="self-end">
+                    <div class="text-sm text-gray-300 font-normal">
+                        <div transition:name=`playliist ${playlist?.id} artists`>
+                            <!-- <InlineArtists artists={playlist?.artists || []} /> -->
+                            <span>{playlist?.artists.join(', ')}</span>
+                        </div>
+                        <p class="mt-1">
+                            <span class="text-white">50 canciones</span>, 3h aproximadamente
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+		<div class="relative z-10 px-6 py-3">
+			<h1 class="text-3xl font-bold mt-4 text-white">Nueva creación   </h1>
+
+			<div class="flex flex-wrap mt-6 gap-4"></div>
+		</div>
+
+		<div class="absolute inset-0 bg-gradient-to-t -z-10
+		from-zinc-900 via-zinc-900/80"></div>
+	</div>
+</Layout>
